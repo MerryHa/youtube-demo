@@ -1,0 +1,27 @@
+.video{
+    flex-grow: 1;
+    flex-basis:230px;
+    max-width: 290px;
+    cursor: pointer;
+    margin: 8px;
+}
+.videoThumbnail{
+    width: 100%;
+}
+
+.channelImg{
+    width:36px;
+    height:36px;
+    background-color: white;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+.description{
+    padding: 4px;
+    color: var(--color-light-gray);
+    display: flex;
+    font-size: 14px;
+}
+.description .videoTitle{
+    color: white;
+}

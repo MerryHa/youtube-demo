@@ -1,0 +1,11 @@
+.playlist{
+    padding: 100px 16px;
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+@media screen and (max-width:600px){
+ .playlist {
+     padding: 100px 0px;  
+ } 
+}

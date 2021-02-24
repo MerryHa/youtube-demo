@@ -1,0 +1,42 @@
+.video{
+    display: flex;
+    padding: 10px;
+    cursor:pointer;
+}
+
+.videoThumbnail{
+    width: 360px;
+    height:200px;
+    margin-right: 10px;
+}
+.infoBox{
+    width:60%;
+    margin-left: 8px;
+}
+.infoBox *{
+    margin-bottom: 8px;
+}
+.channel{
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+.viewCountAndDate{
+    font-size: 12px;
+}
+.channelName,.date{
+    font-size: 12px;
+    margin-left: 8px;
+}
+.channelImg{
+    border-radius: 50%;
+    width:30px;
+    height:30px;
+}
+.description{
+    display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 2; 
+	-webkit-box-orient: vertical;
+    font-size: 12px;
+}

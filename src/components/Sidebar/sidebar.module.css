@@ -1,0 +1,19 @@
+.sideBar{
+    display: flex;
+    flex-direction: column;
+    padding:80px 16px;
+    height:100vh;
+    background-color:var(--color-dark-gray);
+}
+.btn{
+padding:16px 0 14px;
+font-size: 8px;
+background-color: transparent;
+color:white;
+}
+.btn i{
+    display: block;
+    margin: auto;
+    font-size: 16px;
+    padding-bottom: 4px;
+}
