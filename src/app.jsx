@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import Header from './components/Header/header';
 import PopularVideoList from './components/MostPopular/popularVideoList';
+import PlayScreen from './components/PlayScreen/playScreen';
 import SearchVideoList from './components/SearchVideoList/searchVideoList';
 import Sidebar from './components/Sidebar/sidebar';
 import * as config from './config';
@@ -10,39 +11,52 @@ class App extends Component {
   state = {
     currentPage: config.PAGES.mostPopular,
     input: '',
+    playData: {},
   }
   handleSearch = (value) => {
-    const input = value;
-    this.setState({ currentPage: 'searchPage', input: input });
+    this.setState({ ...this.state, currentPage: config.PAGES.searchPage, input: value });
   };
+  handleVideoClick = (datas) => {
+    const playData = datas;
+    console.log(playData);
+    this.setState({ currentPage: config.PAGES.playPage, playData, playData });
+  }
   render() {
     if (this.state.currentPage === config.PAGES.mostPopular) {
       return (
         <>
           <Header youtubeSearch={this.handleSearch} />
-          <div className='mainScreen'>
+          <div className='main'>
             <Sidebar />
             <PopularVideoList currentPage={this.state.currentPage} />
           </div>
         </>
       );
-
     } else if (this.state.currentPage === config.PAGES.searchPage) {
       return (
         <>
           <Header youtubeSearch={this.handleSearch} />
           <div className='main'>
             <Sidebar />
-            <SearchVideoList input={this.state.input} currentPage={this.state.currentPage} />
+            <SearchVideoList
+              input={this.state.input}
+              currentPage={this.state.currentPage} onClickVideo={this.handleVideoClick} />
           </div>
         </>
       );
+    } else if (this.state.currentPage === config.PAGES.playPage) {
+      return (
+        <>
+          <Header youtubeSearch={this.handleSearch} />
+          <PlayScreen
+            key={Date.now() * Math.random()}
+            className='main'
+            input={this.state.input}
+            currentPage={this.state.currentPage}
+            playData={this.state.playData} />
+        </>
+      )
     }
-    // else if (this.state.currentPage === config.PAGES.playPage) {
-    //   return (
-    //     <></>
-    //   )
-    // }
   }
 
 }

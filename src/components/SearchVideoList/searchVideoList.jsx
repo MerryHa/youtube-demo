@@ -25,6 +25,7 @@ class SearchVideoList extends Component {
                             <SearchVideo
                                 key={Date.now() * Math.random()}
                                 data={data}
+                                onClickVideo={this.props.onClickVideo}
                             />
                         )
                     })

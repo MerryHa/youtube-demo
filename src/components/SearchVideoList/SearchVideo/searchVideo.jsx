@@ -11,7 +11,7 @@ class SearchVideo extends Component {
             channelName: '',
             channelImg: '',
             description: '',
-            vedioTitle: '',
+            videoTitle: '',
             date: '',
             videoThumbnail: '',
             viewCount: '',
@@ -25,22 +25,20 @@ class SearchVideo extends Component {
     }
     componentDidMount = () => {
         config.getVideoInfo(this.setVideoInfo, this.setChannelInfo, this.state.datas.videoId, this.state.datas.channelId);
+
     }
 
     setVideoInfo = (data) => {
-        let elapsedTime = dateConverter(data.snippet.publishedAt);
-        let viewCount = viewCountConverter(data.statistics.viewCount);
         datas = {
             ...this.state.datas,
             description: data.snippet.description,
-            vedioTitle: data.snippet.title,
-            date: elapsedTime,
+            videoTitle: data.snippet.title,
+            date: data.snippet.publishedAt,
             videoThumbnail: data.snippet.thumbnails.maxres.url,
-            viewCount: viewCount,
+            viewCount: data.statistics.viewCount,
             like: data.statistics.likeCount,
             dislike: data.statistics.dislikeCount,
             comment: data.statistics.commentCount,
-            viewOriginal: data.statistics.viewCount,
         }
 
     }
@@ -52,18 +50,21 @@ class SearchVideo extends Component {
         }
         this.setState({ datas });
     }
-
+    handlePlay = () => {
+        const playData = { ...this.state.datas };
+        this.props.onClickVideo(playData);
+    }
     render() {
         return (
-            <div className={styles.video}>
+            <div className={styles.video} onClick={this.handlePlay}>
                 <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail} alt='thumbnail'></img>
                 <div className={styles.infoBox}>
-                    <p className={styles.videoTitle}>{this.state.datas.vedioTitle}</p>
-                    <p className={styles.viewCountAndDate}>{this.state.datas.viewCount}
-                        <span className={styles.date}>{this.state.datas.date}</span>
+                    <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
+                    <p className={styles.viewCountAndDate}>{`${countConverter(this.state.datas.viewCount)}회`}
+                        <span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
                     </p>
                     <div className={styles.channel}>
-                        <img src={this.state.datas.channelImg} alt="channelImage" className={styles.channelImg} />
+                        <img src={this.state.datas.channelImg} alt="channel" className={styles.channelImg} />
                         <p className={styles.channelName}>{this.state.datas.channelName}</p>
                     </div>
                     <p className={styles.description}>{this.state.datas.description}</p>
@@ -74,22 +75,25 @@ class SearchVideo extends Component {
 }
 
 export default SearchVideo;
-function viewCountConverter(viewCount) {
+
+function countConverter(count) {
     let result;
-    if (viewCount < 10000) {
-        result = `${viewCount}회`;
-    } else if (viewCount < 100000000) {
-        result = `${Math.floor(viewCount / 10000)}만회`;
+    if (count < 1000) {
+        result = count;
+    } else if (count < 10000) {
+        result = `${count / 1000}천`;
+    } else if (count < 100000000) {
+        result = `${Math.floor(count / 10000)}만`;
     } else {
-        result = `${Math.floor(viewCount / 100000000)}억회`;
+        result = `${Math.floor(count / 100000000)}억`;
     }
     return result;
 }
 
+
 function dateConverter(dateString) {
     const publishedDate = new Date(dateString);
     const currentDate = new Date;
-    console.log()
     const seconds = (currentDate.getTime() - publishedDate.getTime()) / 1000;
     let result;
     if (seconds < 60) {

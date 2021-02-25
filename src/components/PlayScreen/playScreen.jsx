@@ -1,75 +1,115 @@
 import React, { Component } from 'react';
 import styles from '../PlayScreen/playScreen.module.css';
 
+
 class PlayScreen extends Component {
     state = {
         datas: {
             videoId: this.props.playData.videoId,
             channelId: this.props.playData.channelId,
-            channelName: this.props.playData.channeName,
+            channelName: this.props.playData.channelName,
             channelImg: this.props.playData.channelImg,
             description: this.props.playData.description,
-            vedioTitle: this.props.playData.videoTitle,
+            videoTitle: this.props.playData.videoTitle,
             date: this.props.playData.date,
             videoThumbnail: this.props.playData.videoThumbnail,
             viewCount: this.props.playData.viewCount,
-            subscriber: this.props.playData.subscriber,
-            like: this.props.playData.like,
-            dislike: this.props.playData.dislike,
+            subscriber: `${countConverter(this.props.playData.subscriber)}명`,
+            like: `${countConverter(this.props.playData.like)}`,
+            dislike: `${countConverter(this.props.playData.dislike)}`,
             comment: this.props.playData.comment,
-            viewOriginal: this.props.playData.viewOriginal,
         },
-        class: 'description clamp',
+        input: this.props.input,
+        currentPage: this.props.currentPage,
+        // more: false,
+        // moreToggle: '더보기',
     }
-    handleMoreClick = () => {
-        if (this.state.className === 'description') {
-            this.setState({ class: 'description clamp' });
-
-            return;
-        }
-        this.setState({ class: 'description' });
-
-    }
+    // handleMoreClick = () => {
+    //     if (this.state.more) {
+    //         this.setState({ more: !this.state.more, moreToggle: '줄이기' });
+    //     } else {
+    //         this.setState({ more: !this.state.more, moreToggle: '더보기' });
+    //     }
+    // }
     render() {
-        let num = this.state.datas.viewOriginal;
         return (
-            <div className={styles.playScreen}>
-                <div className="videoContainer">
-                    <iframe src={this.state.datas.videoId} frameBorder="0"></iframe>
-                    <h2 className='title'>{this.state.datas.vedioTitle}</h2>
-                    <div className="info">
-                        <p className={styles.viewCountAndDate}>{
-                            `${num.toLocaleString()}회`
-                        }<span className={styles.date}>{this.state.datas.date}</span>
-                        </p>
-                        <div className='btnContainer'>
-                            <button><i className="fas fa-thumbs-up"></i>{this.state.datas.like}</button>
-                            <button><i className="fas fa-thumbs-down"></i>{this.state.datas.dislike}</button>
-                            <button><i className="fas fa-share"></i></button>
-                            <button><i className="fas fa-folder-plus"></i></button>
-                            <button>…</button>
-                        </div>
-                    </div>
-                    <div className="aboutChannelAndVideo">
-                        <img src={this.state.datas.channelImg} alt="Channel Image" className="channelImg" />
-                        <div className="info">
-                            <h4 className='channelName'>{this.state.datas.channelName}</h4>
-                            <div className="subscribers">26만명</div>
-                            <p className={this.state.class} >
-                                {this.state.datas.description}
-                                <button className='moreBtn' onClick={this.handleMoreClick}>더보기</button>
+            <>
+                <iframe
+                    src={`https://www.youtube.com/embed/${this.state.datas.videoId}`}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+                <div className={styles.container}>
+                    <div className={styles.videoContainer}>
+                        <h2 className={styles.title}>{this.state.datas.videoTitle}</h2>
+                        <div className={styles.viewInfo}>
+                            <p className={styles.viewCountAndDate}>{
+                                `조회수 ${numberWithCommas(this.state.datas.viewCount)}회 • `
+                            }<span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
                             </p>
+                            <div className={styles.btnContainer}>
+                                <button><i className="fas fa-thumbs-up"></i>{this.state.datas.like}</button>
+                                <button><i className="fas fa-thumbs-down"></i>{this.state.datas.dislike}</button>
+                                <button><i className="fas fa-share"></i>공유</button>
+                                <button><i className="fas fa-folder-plus"></i>저장</button>
+                                <button>…</button>
+                            </div>
+                        </div>
+                        <div className={styles.channelContainer}>
+                            <div className={styles.channelStart}>
+                                <img src={this.state.datas.channelImg} alt="Channel" className={styles.channelImg} />
+                                <div className="channelInfo">
+                                    <h4 className={styles.channelName}>{this.state.datas.channelName}</h4>
+                                    <div className={styles.subscribers}>{this.state.datas.subscriber}</div>
+                                </div>
+                            </div>
+                            <div className="channelEnd">
+                                <button className={styles.subscribe}>구독</button>
+                                <button className={styles.alarm}><i className="far fa-bell"></i></button>
+                            </div>
 
                         </div>
-                        <button className="subscribe">구독</button>
+                        <p className={styles.notMore}>
+                            {this.state.datas.description}
+                            <button className={styles.moreBtn}>{this.state.moreToggle}</button>
+                        </p>
+                    </div>
+                    <div className={styles.recommendation}>
+
                     </div>
                 </div>
-                <div className="recommendation">
 
-                </div>
-            </div>
+            </>
         );
     }
 }
 
 export default PlayScreen;
+
+function countConverter(count) {
+    let result;
+    if (count < 1000) {
+        result = count;
+    } else if (count < 10000) {
+        const num = count / 1000;
+        result = `${num.toFixed(1)}천`;
+    } else if (count < 100000) {
+        const num = count / 10000;
+        result = `${num.toFixed(1)}만`;
+    } else if (count < 100000000) {
+        result = `${Math.floor(count / 10000)}만`;
+    } else {
+        result = `${Math.floor(count / 100000000)}억`;
+    }
+    return result;
+}
+function dateConverter(publishedAt) {
+    const before = new Date(publishedAt);
+    const year = before.getFullYear();
+    const month = before.getMonth();
+    const date = before.getDate();
+    return `${year}. ${month}. ${date}.`;
+}
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
