@@ -20,11 +20,14 @@ class App extends Component {
     const playData = datas;
     this.setState({ currentPage: config.PAGES.playPage, playData });
   }
+  handleLogoClick = () => {
+    this.setState({ currentPage: config.PAGES.mostPopular });
+  }
   render() {
     if (this.state.currentPage === config.PAGES.mostPopular) {
       return (
         <>
-          <Header youtubeSearch={this.handleSearch} />
+          <Header youtubeSearch={this.handleSearch} onLogoClick={this.handleLogoClick} />
           <div className='main'>
             <Sidebar />
             <PopularVideoList currentPage={this.state.currentPage} onClickVideo={this.handleVideoClick} />
@@ -34,7 +37,7 @@ class App extends Component {
     } else if (this.state.currentPage === config.PAGES.searchPage) {
       return (
         <>
-          <Header youtubeSearch={this.handleSearch} />
+          <Header youtubeSearch={this.handleSearch} onLogoClick={this.handleLogoClick} />
           <div className='main'>
             <Sidebar />
             <SearchVideoList
@@ -46,7 +49,7 @@ class App extends Component {
     } else if (this.state.currentPage === config.PAGES.playPage) {
       return (
         <>
-          <Header youtubeSearch={this.handleSearch} />
+          <Header youtubeSearch={this.handleSearch} onLogoClick={this.handleLogoClick} />
           <PlayScreen
             key={Date.now() * Math.random()}
             className='main'

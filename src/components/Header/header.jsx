@@ -9,7 +9,7 @@ const Header = (props) => {
                 <button className={styles.menuBtn}>
                     <i className="fas fa-bars"></i>
                 </button>
-                <a className={styles.logo} href="#">
+                <a className={styles.logo} href='#' onClick={props.onLogoClick}>
                     <img className={styles.logoImage} src="/images/logo.png" alt="logo" />
                     <h4 className={styles.logoTitle}>Youtube</h4>
                 </a>
