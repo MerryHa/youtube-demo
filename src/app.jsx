@@ -18,8 +18,7 @@ class App extends Component {
   };
   handleVideoClick = (datas) => {
     const playData = datas;
-    console.log(playData);
-    this.setState({ currentPage: config.PAGES.playPage, playData, playData });
+    this.setState({ currentPage: config.PAGES.playPage, playData });
   }
   render() {
     if (this.state.currentPage === config.PAGES.mostPopular) {
@@ -28,7 +27,7 @@ class App extends Component {
           <Header youtubeSearch={this.handleSearch} />
           <div className='main'>
             <Sidebar />
-            <PopularVideoList currentPage={this.state.currentPage} />
+            <PopularVideoList currentPage={this.state.currentPage} onClickVideo={this.handleVideoClick} />
           </div>
         </>
       );
@@ -53,7 +52,8 @@ class App extends Component {
             className='main'
             input={this.state.input}
             currentPage={this.state.currentPage}
-            playData={this.state.playData} />
+            playData={this.state.playData}
+            onClickVideo={this.handleVideoClick} />
         </>
       )
     }

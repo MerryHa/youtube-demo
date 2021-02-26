@@ -20,7 +20,9 @@ body{
   --color-black:#131313;
   --color-dark-gray: #202020;
   --color-gray:#313131;
+  --color-middle-gray:#909090;
   --color-light-gray:#AAAAAA;
+  --color-blue:#4195f0;
 }
 .main{
   display: flex;

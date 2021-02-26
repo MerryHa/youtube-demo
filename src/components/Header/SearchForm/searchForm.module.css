@@ -16,7 +16,7 @@
     padding-left: 6px;
 }
 .searchInput[type="text"]:focus{
-    border-color: #3682b9;
+    border-color: var(--color-blue);
     outline: 0;
 }
 .searchIconBtn{

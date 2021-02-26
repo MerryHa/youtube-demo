@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../PlayScreen/playScreen.module.css';
-
+import RcmVideoList from '../Recommendation/rcmVideoList';
 
 class PlayScreen extends Component {
     state = {
@@ -18,6 +18,7 @@ class PlayScreen extends Component {
             like: `${countConverter(this.props.playData.like)}`,
             dislike: `${countConverter(this.props.playData.dislike)}`,
             comment: this.props.playData.comment,
+            tags: this.props.playData.tags,
         },
         input: this.props.input,
         currentPage: this.props.currentPage,
@@ -40,6 +41,7 @@ class PlayScreen extends Component {
                     allowFullScreen></iframe>
                 <div className={styles.container}>
                     <div className={styles.videoContainer}>
+                        <p className={styles.tags}>{tagMaker(this.state.datas.tags)}</p>
                         <h2 className={styles.title}>{this.state.datas.videoTitle}</h2>
                         <div className={styles.viewInfo}>
                             <p className={styles.viewCountAndDate}>{
@@ -47,19 +49,21 @@ class PlayScreen extends Component {
                             }<span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
                             </p>
                             <div className={styles.btnContainer}>
-                                <button><i className="fas fa-thumbs-up"></i>{this.state.datas.like}</button>
-                                <button><i className="fas fa-thumbs-down"></i>{this.state.datas.dislike}</button>
+                                <button className={styles.btnBold}><i className="fas fa-thumbs-up"></i>{this.state.datas.like}</button>
+                                <button className={styles.btnBold}><i className="fas fa-thumbs-down"></i>{this.state.datas.dislike}</button>
                                 <button><i className="fas fa-share"></i>공유</button>
                                 <button><i className="fas fa-folder-plus"></i>저장</button>
-                                <button>…</button>
+                                <button>•••</button>
                             </div>
+
                         </div>
+                        <div className={styles.line}></div>
                         <div className={styles.channelContainer}>
                             <div className={styles.channelStart}>
                                 <img src={this.state.datas.channelImg} alt="Channel" className={styles.channelImg} />
-                                <div className="channelInfo">
+                                <div className={styles.channelInfo}>
                                     <h4 className={styles.channelName}>{this.state.datas.channelName}</h4>
-                                    <div className={styles.subscribers}>{this.state.datas.subscriber}</div>
+                                    <div className={styles.subscribers}>구독자 {this.state.datas.subscriber}</div>
                                 </div>
                             </div>
                             <div className="channelEnd">
@@ -72,10 +76,14 @@ class PlayScreen extends Component {
                             {this.state.datas.description}
                             <button className={styles.moreBtn}>{this.state.moreToggle}</button>
                         </p>
+                        <div className={styles.line}></div>
+                        <span className={styles.comments}>댓글 {numberWithCommas(this.state.datas.comment)}개</span>
                     </div>
                     <div className={styles.recommendation}>
-
+                        <RcmVideoList currentId={this.state.datas.videoId} currentPage={this.state.currentPage}
+                            onClickVideo={this.props.onClickVideo} />
                     </div>
+
                 </div>
 
             </>
@@ -112,4 +120,12 @@ function dateConverter(publishedAt) {
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
+function tagMaker(tags) {
+    let result = '';
+    let i = 0;
+    while (i < 3) {
+        result += `#${tags[i]} `;
+        i++;
+    }
+    return result;
+}

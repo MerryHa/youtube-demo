@@ -1,0 +1,23 @@
+.video{
+    display: flex;
+    padding: 10px;
+    cursor:pointer;
+    color:white;
+    font-size: 13px;
+}
+
+.videoThumbnail{
+    width: 180px;
+    height:100px;
+    margin-right: 10px;
+}
+.infoBox{
+    width:60%;
+    margin-left: 8px;
+}
+.videoTitle{
+    font-size: 14px;
+}
+.infoBox *{
+    margin-bottom: 8px;
+}

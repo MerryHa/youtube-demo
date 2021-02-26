@@ -6,33 +6,52 @@ iframe{
 .container{
     display: flex;
     color: white;
-    padding: 20px;
+    padding: 10px 40px;
 }
 .videoContainer{
-    width: 70%;
+    width: 65%;
     font-size:12px;
+    padding: 0 20px;
 }
 .recommendation{
-    width:30%;
+    width:35%;
+}
+.line{
+    margin:16px 0 8px 0;
+    height:1px;
+    width: 100%;
+    background-color: var(--color-gray);
+}
+.tags{
+    color: var(--color-blue);
+    font-weight: 500;
 }
 .title{
     font-size: 20px;
+    font-weight: 400;
 }
 .viewInfo{
     display:flex;
     justify-content: space-between;
     margin: 8px 0;
 }
+.viewCountAndDate,.moreBtn{
+color:var(--color-light-gray);
+}
 .btnContainer{
     display: flex;
-    font-size: 20px;
+    font-size: 24px;
 }
 button{
     color: var(--color-light-gray);
+    margin-left: 8px;
+}
+.btnBold{
+    font-weight: bold;
 }
 .btnContainer button i{
-margin-right: 4px;
-font-size: 20px;
+margin-right: 8px;
+font-size: 22px;
 }
 .channelContainer{
     display: flex;
@@ -40,6 +59,19 @@ font-size: 20px;
     justify-content: space-between;
     font-size: 15px;
     margin: 16px 0;
+}
+.channelInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.channelImg,.channelName{
+    cursor: pointer;
+    font-weight: 400;
+}
+.subscribers{
+    font-size: 12px;
+    color:var(--color-light-gray);
 }
 .alarm{
     font-size: 20px;
@@ -62,17 +94,24 @@ font-size: 20px;
 .channelStart{
     display: flex;
 }
+
 /* .more{
     font-size: 12px;
 } */
 .notMore{
+    padding: 0 50px;
     display: -webkit-box;
 	overflow: hidden;
 	-webkit-line-clamp: 3; 
 	-webkit-box-orient: vertical;
-    font-size: 12px;
+    font-size: 14px;
+    font-weight:400;
+    line-height: 20px;
 }
-@media screen and (max-width:600px){
+.comments{
+    font-size: 16px;
+}
+@media screen and (max-width:1000px){
     .container{
         display: block;
     }

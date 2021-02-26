@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as config from "../../config";
 import styles from '../SearchVideoList/searchVideoList.module.css';
 import SearchVideo from './SearchVideo/searchVideo';
+
 class SearchVideoList extends Component {
     state = {
         currentPage: this.props.currentPage,

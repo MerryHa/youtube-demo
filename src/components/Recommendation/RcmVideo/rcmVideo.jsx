@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import styles from '../SearchVideo/searchVideo.module.css';
 import * as config from '../../../config';
+import styles from '../RcmVideo/rcmVideo.module.css'
+
 let datas = {};
 
-class SearchVideo extends Component {
+class RcmVideo extends Component {
     state = {
         datas: {
             videoId: this.props.data.id.videoId,
@@ -61,21 +62,16 @@ class SearchVideo extends Component {
                 <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail} alt='thumbnail'></img>
                 <div className={styles.infoBox}>
                     <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
-                    <p className={styles.viewCountAndDate}>{`${countConverter(this.state.datas.viewCount)}회`}
-                        <span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
+                    <p className={styles.channelName}>{this.state.datas.channelName}</p>
+                    <p className={styles.viewCountAndDate}>{`조회수 ${countConverter(this.state.datas.viewCount)}회 • ${dateConverter(this.state.datas.date)}`}
                     </p>
-                    <div className={styles.channel}>
-                        <img src={this.state.datas.channelImg} alt="channel" className={styles.channelImg} />
-                        <p className={styles.channelName}>{this.state.datas.channelName}</p>
-                    </div>
-                    <p className={styles.description}>{this.state.datas.description}</p>
                 </div>
             </div>
         );
     }
 }
 
-export default SearchVideo;
+export default RcmVideo;
 
 function countConverter(count) {
     let result;

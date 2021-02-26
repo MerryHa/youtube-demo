@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
-import styles from '../MostPopular/popularVideoList.module.css';
-import * as config from "../../config";
-import PopularVideo from './PopularVideo/popularVideo';
-
-class PopularVideoList extends Component {
+import * as config from '../../config';
+import RcmVideo from './RcmVideo/rcmVideo';
+class RcmVideoList extends Component {
     state = {
         currentPage: this.props.currentPage,
+        currentId: this.props.currentId,
         datas: [],
     }
     componentDidMount = () => {
-        config.getMostPopular(this.setDatas);
+        config.getRcmData(this.setDatas, this.state.currentId);
     }
-    setDatas = (items) => {
-        const datas = [...items];
+    setDatas = (array) => {
+        const datas = [...array];
         this.setState({ datas });
     }
-
     render() {
         return (
-            <div className={styles.playlist}>
+            <>
                 {
                     this.state.datas.map(data => {
                         return (
-                            <PopularVideo
+                            <RcmVideo
+                                data={data}
                                 key={Date.now() * Math.random()}
                                 onClickVideo={this.props.onClickVideo}
-                                data={data}
                             />
-                        )
+                        );
                     })
                 }
-            </div>
-
+            </>
         );
+
+
     }
 }
 
-export default PopularVideoList;
+export default RcmVideoList;
