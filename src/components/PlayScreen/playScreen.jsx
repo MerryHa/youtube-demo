@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from '../PlayScreen/playScreen.module.css';
 import RcmVideoList from '../Recommendation/rcmVideoList';
-
+import * as config from '../../config';
 class PlayScreen extends Component {
     state = {
         datas: {
@@ -14,24 +14,15 @@ class PlayScreen extends Component {
             date: this.props.playData.date,
             videoThumbnail: this.props.playData.videoThumbnail,
             viewCount: this.props.playData.viewCount,
-            subscriber: `${countConverter(this.props.playData.subscriber)}명`,
-            like: `${countConverter(this.props.playData.like)}`,
-            dislike: `${countConverter(this.props.playData.dislike)}`,
+            subscriber: this.props.playData.subscriber,
+            like: this.props.playData.like,
+            dislike: this.props.playData.dislike,
             comment: this.props.playData.comment,
             tags: this.props.playData.tags,
         },
         input: this.props.input,
         currentPage: this.props.currentPage,
-        // more: false,
-        // moreToggle: '더보기',
     }
-    // handleMoreClick = () => {
-    //     if (this.state.more) {
-    //         this.setState({ more: !this.state.more, moreToggle: '줄이기' });
-    //     } else {
-    //         this.setState({ more: !this.state.more, moreToggle: '더보기' });
-    //     }
-    // }
     render() {
         return (
             <>
@@ -41,16 +32,16 @@ class PlayScreen extends Component {
                     allowFullScreen></iframe>
                 <div className={styles.container}>
                     <div className={styles.videoContainer}>
-                        <p className={styles.tags}>{tagMaker(this.state.datas.tags)}</p>
+                        <p className={styles.tags}>{config.tagMaker(this.state.datas.tags)}</p>
                         <h2 className={styles.title}>{this.state.datas.videoTitle}</h2>
                         <div className={styles.viewInfo}>
                             <p className={styles.viewCountAndDate}>{
-                                `조회수 ${numberWithCommas(this.state.datas.viewCount)}회 • `
-                            }<span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
+                                `조회수 ${config.numberWithCommas(this.state.datas.viewCount)}회 • `
+                            }<span className={styles.date}>{config.dateConverter(this.state.datas.date)}</span>
                             </p>
                             <div className={styles.btnContainer}>
-                                <button className={styles.btnBold}><i className="fas fa-thumbs-up"></i>{this.state.datas.like}</button>
-                                <button className={styles.btnBold}><i className="fas fa-thumbs-down"></i>{this.state.datas.dislike}</button>
+                                <button className={styles.btnBold}><i className="fas fa-thumbs-up"></i>{config.countConverter(this.state.datas.viewCount)}</button>
+                                <button className={styles.btnBold}><i className="fas fa-thumbs-down"></i>{config.countConverter(this.state.datas.dislike)}</button>
                                 <button><i className="fas fa-share"></i>공유</button>
                                 <button><i className="fas fa-folder-plus"></i>저장</button>
                                 <button>•••</button>
@@ -63,7 +54,7 @@ class PlayScreen extends Component {
                                 <img src={this.state.datas.channelImg} alt="Channel" className={styles.channelImg} />
                                 <div className={styles.channelInfo}>
                                     <h4 className={styles.channelName}>{this.state.datas.channelName}</h4>
-                                    <div className={styles.subscribers}>구독자 {this.state.datas.subscriber}</div>
+                                    <div className={styles.subscribers}>구독자 {config.countConverter(this.state.datas.subscriber)}명</div>
                                 </div>
                             </div>
                             <div className="channelEnd">
@@ -74,16 +65,15 @@ class PlayScreen extends Component {
                         </div>
                         <p className={styles.notMore}>
                             {this.state.datas.description}
-                            <button className={styles.moreBtn}>{this.state.moreToggle}</button>
                         </p>
+                        <button className={styles.moreBtn}>더보기</button>
                         <div className={styles.line}></div>
-                        <span className={styles.comments}>댓글 {numberWithCommas(this.state.datas.comment)}개</span>
+                        <span className={styles.comments}>댓글 {config.numberWithCommas(this.state.datas.comment)}개</span>
                     </div>
                     <div className={styles.recommendation}>
                         <RcmVideoList currentId={this.state.datas.videoId} currentPage={this.state.currentPage}
                             onClickVideo={this.props.onClickVideo} />
                     </div>
-
                 </div>
 
             </>
@@ -93,39 +83,4 @@ class PlayScreen extends Component {
 
 export default PlayScreen;
 
-function countConverter(count) {
-    let result;
-    if (count < 1000) {
-        result = count;
-    } else if (count < 10000) {
-        const num = count / 1000;
-        result = `${num.toFixed(1)}천`;
-    } else if (count < 100000) {
-        const num = count / 10000;
-        result = `${num.toFixed(1)}만`;
-    } else if (count < 100000000) {
-        result = `${Math.floor(count / 10000)}만`;
-    } else {
-        result = `${Math.floor(count / 100000000)}억`;
-    }
-    return result;
-}
-function dateConverter(publishedAt) {
-    const before = new Date(publishedAt);
-    const year = before.getFullYear();
-    const month = before.getMonth();
-    const date = before.getDate();
-    return `${year}. ${month}. ${date}.`;
-}
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-function tagMaker(tags) {
-    let result = '';
-    let i = 0;
-    while (i < 3) {
-        result += `#${tags[i]} `;
-        i++;
-    }
-    return result;
-}
+

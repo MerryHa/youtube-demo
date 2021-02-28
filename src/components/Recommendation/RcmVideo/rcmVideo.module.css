@@ -2,7 +2,6 @@
     display: flex;
     padding: 10px;
     cursor:pointer;
-    color:var(--color-gray);
     font-size: 13px;
 
 }
@@ -19,6 +18,10 @@
 }
 .videoTitle{
     font-size: 14px;
+    font-weight: bold;
+}
+.channelName,.viewCountAndDate{
+color:var(--color-middle-gray);
 }
 .infoBox *{
     margin-bottom: 8px;

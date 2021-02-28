@@ -56,8 +56,8 @@ class SearchVideo extends Component {
                 <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail} alt='thumbnail'></img>
                 <div className={styles.infoBox}>
                     <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
-                    <p className={styles.viewCountAndDate}>{`${countConverter(this.state.datas.viewCount)}회`}
-                        <span className={styles.date}>{dateConverter(this.state.datas.date)}</span>
+                    <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회`}
+                        <span className={styles.date}>{config.agoConverter(this.state.datas.date)}</span>
                     </p>
                     <div className={styles.channel}>
                         <img src={this.state.datas.channelImg} alt="channel" className={styles.channelImg} />
@@ -72,40 +72,3 @@ class SearchVideo extends Component {
 
 export default SearchVideo;
 
-function countConverter(count) {
-    let result;
-    if (count < 1000) {
-        result = count;
-    } else if (count < 10000) {
-        result = `${count / 1000}천`;
-    } else if (count < 100000000) {
-        result = `${Math.floor(count / 10000)}만`;
-    } else {
-        result = `${Math.floor(count / 100000000)}억`;
-    }
-    return result;
-}
-
-
-function dateConverter(dateString) {
-    const publishedDate = new Date(dateString);
-    const currentDate = new Date;
-    const seconds = (currentDate.getTime() - publishedDate.getTime()) / 1000;
-    let result;
-    if (seconds < 60) {
-        result = `${seconds}초 전`;
-    } else if (seconds < 3600) {
-        result = `${Math.floor(seconds / 60)}분 전`;
-    } else if (seconds < 86400) {
-        result = `${Math.floor(seconds / 3600)}시간 전`;
-    } else if (seconds < 604800) {
-        result = `${Math.floor(seconds / 86400)}일 전`;
-    } else if (seconds < 2592000) {
-        result = `${Math.floor(seconds / 604800)}주 전`;
-    } else if (seconds < 31536000) {
-        result = `${Math.floor(seconds / 2592000)}달 전`;
-    } else {
-        result = `${Math.floor(seconds / 31536000)}년 전`;
-    }
-    return result;
-}
