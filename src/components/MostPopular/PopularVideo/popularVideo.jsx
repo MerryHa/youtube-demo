@@ -1,49 +1,31 @@
 import React, { Component } from 'react';
 import styles from '../PopularVideo/popularVideo.module.css';
 import * as config from '../../../config';
-let datas = {};
-
 class PopularVideo extends Component {
     state = {
         datas: {
             videoId: this.props.data.id,
             channelId: this.props.data.snippet.channelId,
-            channelName: '',
+            channelName: this.props.data.snippet.channelTitle,
             channelImg: '',
-            description: '',
-            videoTitle: '',
-            date: '',
-            videoThumbnail: '',
-            viewCount: '',
+            description: this.props.data.snippet.description,
+            videoTitle: this.props.data.snippet.title,
+            date: this.props.data.snippet.publishedAt,
+            videoThumbnail: this.props.data.snippet.thumbnails.standard.url,
+            viewCount: this.props.data.statistics.viewCount,
             subscriber: '',
-            like: '',
-            dislike: '',
-            comment: '',
-            viewOriginal: '',
-            tags: '',
+            like: this.props.data.statistics.likeCount,
+            dislike: this.props.data.statistics.dislikeCount,
+            comment: this.props.data.statistics.commentCount,
+            tags: this.props.data.snippet.tags,
         }
     }
     componentDidMount = () => {
-        config.getVideoInfo(this.setVideoInfo, this.setChannelInfo, this.state.datas.videoId, this.state.datas.channelId);
-    }
-    setVideoInfo = (data) => {
-        datas = {
-            ...this.state.datas,
-            description: data.snippet.description,
-            videoTitle: data.snippet.title,
-            date: data.snippet.publishedAt,
-            videoThumbnail: data.snippet.thumbnails.maxres.url,
-            viewCount: data.statistics.viewCount,
-            like: data.statistics.likeCount,
-            dislike: data.statistics.dislikeCount,
-            comment: data.statistics.commentCount,
-            tags: data.snippet.tags,
-        }
-
+        config.fetchChannelData(this.state.datas.channelId, this.setChannelInfo)
     }
     setChannelInfo = (data) => {
-        datas = {
-            ...datas, channelName: data.snippet.title,
+        const datas = {
+            ...this.state.datas,
             channelImg: data.snippet.thumbnails.default.url,
             subscriber: data.statistics.subscriberCount
         }
@@ -57,9 +39,9 @@ class PopularVideo extends Component {
     render() {
         return (
             <div className={styles.video} onClick={this.handlePlay}>
-                <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail} alt='thumbnail'></img>
+                <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail}></img>
                 <div className={styles.description}>
-                    <img src={this.state.datas.channelImg} alt="channel" className={styles.channelImg} />
+                    <img src={this.state.datas.channelImg} className={styles.channelImg} />
                     <div className={styles.infoBox}>
                         <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
                         <p className={styles.channelName}>{this.state.datas.channelName}</p>

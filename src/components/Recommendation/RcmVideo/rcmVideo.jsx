@@ -2,39 +2,35 @@ import React, { Component } from 'react';
 import * as config from '../../../config';
 import styles from '../RcmVideo/rcmVideo.module.css'
 
-let datas = {};
 
 class RcmVideo extends Component {
     state = {
         datas: {
             videoId: this.props.data.id.videoId,
             channelId: this.props.data.snippet.channelId,
-            channelName: '',
-            channelImg: '',
-            description: '',
-            videoTitle: '',
-            date: '',
+            channelName: this.props.data.snippet.channelTitle,
+            channelImg: this.props.data.snippet.thumbnails.default.url,
+            description: this.props.data.snippet.description,
+            videoTitle: this.props.data.snippet.title,
+            date: this.props.data.snippet.publishedAt,
             videoThumbnail: '',
             viewCount: '',
             subscriber: '',
             like: '',
             dislike: '',
             comment: '',
-            viewOriginal: '',
             tags: '',
         }
 
     }
     componentDidMount = () => {
-        config.getVideoInfo(this.setVideoInfo, this.setChannelInfo, this.state.datas.videoId, this.state.datas.channelId);
+        config.fetchVideoData(this.state.datas.videoId, this.setVideoInfo);
+        config.fetchChannelData(this.state.datas.channelId, this.setChannelInfo);
     }
 
     setVideoInfo = (data) => {
-        datas = {
+        const datas = {
             ...this.state.datas,
-            description: data.snippet.description,
-            videoTitle: data.snippet.title,
-            date: data.snippet.publishedAt,
             videoThumbnail: data.snippet.thumbnails.maxres.url,
             viewCount: data.statistics.viewCount,
             like: data.statistics.likeCount,
@@ -42,12 +38,11 @@ class RcmVideo extends Component {
             comment: data.statistics.commentCount,
             tags: data.snippet.tags,
         }
-
+        this.setState({ datas });
     }
     setChannelInfo = (data) => {
-        datas = {
-            ...datas, channelName: data.snippet.title,
-            channelImg: data.snippet.thumbnails.default.url,
+        const datas = {
+            ...this.state.datas,
             subscriber: data.statistics.subscriberCount
         }
         this.setState({ datas });
