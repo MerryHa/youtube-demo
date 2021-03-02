@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 export const PAGES = {
     mostPopular: 'mostPopular',
     searchPage: 'searchPage',
@@ -8,7 +10,8 @@ const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
-const api_key = process.env.REACT_APP_API_KEY1;
+dotenv.config();
+const api_key = process.env.REACT_APP_YOUTUBE_API_KEY1;
 
 export async function getMostPopular(callback) {
     const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=28&key=${api_key}`;
