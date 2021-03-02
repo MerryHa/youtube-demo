@@ -17,3 +17,8 @@ color:white;
     font-size: 16px;
     padding-bottom: 4px;
 }
+@media screen and (max-width:780px){
+    .sideBar{
+      display: none;
+    }
+  }

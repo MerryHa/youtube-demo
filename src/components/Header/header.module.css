@@ -37,9 +37,11 @@
     font-size: 16px;
 }
 .center{
+    display: flex;
     width: 60%;
 }
 .end{
+    display: flex;
     margin: 0 20px;
 }
 .btn i{
@@ -50,4 +52,10 @@
     padding:8px;
     margin-left: 20px;
     background-color: var(--color-dark-gray);
+}
+
+@media screen and (max-width:650px){
+    .btn{
+        margin-left: 8px;
+    }
 }

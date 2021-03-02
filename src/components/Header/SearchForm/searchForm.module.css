@@ -1,6 +1,6 @@
 
 .search{
-    display: inline-flex;
+    display: flex;
     align-items: center;
     width:90%;
 }
@@ -23,6 +23,7 @@
     background-color: var(--color-gray);
     height: 30px;
     width: 65px;
+    margin-left:0;
 }
 .searchIcon{
     width:16px;
