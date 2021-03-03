@@ -31,7 +31,8 @@ class PlayScreen extends Component {
                         <iframe
                             src={`https://www.youtube.com/embed/${this.state.datas.videoId}`}
                             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen></iframe>
+                            allowFullScreen
+                            frameBorder='0'></iframe>
                     </div>
                     <div className={styles.container}>
                         <div className={styles.videoContainer}>
