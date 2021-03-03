@@ -1,15 +1,18 @@
 .sideBar{
     display: flex;
     flex-direction: column;
-    padding:80px 16px;
+    padding:55px 0px;
     height:100vh;
     background-color:var(--color-dark-gray);
 }
 .btn{
-padding:16px 0 14px;
+padding:20px;
 font-size: 8px;
 background-color: transparent;
 color:white;
+}
+.btn:hover{
+  background-color: var(--color-gray);
 }
 .btn i{
     display: block;

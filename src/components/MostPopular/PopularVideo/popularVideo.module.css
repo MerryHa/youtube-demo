@@ -3,7 +3,7 @@
     flex-basis:230px;
     max-width: 290px;
     cursor: pointer;
-    margin: 8px;
+    margin: 16px 8px;
 }
 .videoThumbnail{
     width: 100%;

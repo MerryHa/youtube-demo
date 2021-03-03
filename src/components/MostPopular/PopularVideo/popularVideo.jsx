@@ -11,7 +11,7 @@ class PopularVideo extends Component {
             description: this.props.data.snippet.description,
             videoTitle: this.props.data.snippet.title,
             date: this.props.data.snippet.publishedAt,
-            videoThumbnail: this.props.data.snippet.thumbnails.standard.url,
+            videoThumbnail: this.props.data.snippet.thumbnails.medium.url,
             viewCount: this.props.data.statistics.viewCount,
             subscriber: '',
             like: this.props.data.statistics.likeCount,
@@ -45,7 +45,7 @@ class PopularVideo extends Component {
                     <div className={styles.infoBox}>
                         <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
                         <p className={styles.channelName}>{this.state.datas.channelName}</p>
-                        <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회`}
+                        <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회 • `}
                             <span className={styles.date}>{config.agoConverter(this.state.datas.date)}</span>
                         </p>
                     </div>

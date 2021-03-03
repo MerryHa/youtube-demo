@@ -13,7 +13,7 @@ class SearchVideo extends Component {
             description: this.props.data.snippet.description,
             videoTitle: this.props.data.snippet.title,
             date: this.props.data.snippet.publishTime,
-            videoThumbnail: this.props.data.snippet.thumbnails.high.url,
+            videoThumbnail: this.props.data.snippet.thumbnails.medium.url,
             viewCount: '',
             subscriber: '',
             like: '',
@@ -56,7 +56,7 @@ class SearchVideo extends Component {
                 <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail}></img>
                 <div className={styles.infoBox}>
                     <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
-                    <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회`}
+                    <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회 • `}
                         <span className={styles.date}>{config.agoConverter(this.state.datas.date)}</span>
                     </p>
                     <div className={styles.channel}>
