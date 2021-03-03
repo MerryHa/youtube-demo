@@ -53,7 +53,7 @@ class SearchVideo extends Component {
     render() {
         return (
             <div className={styles.video} onClick={this.handlePlay}>
-                <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail} alt='thumbnail'></img>
+                <img src={this.state.datas.videoThumbnail} className={styles.videoThumbnail}></img>
                 <div className={styles.infoBox}>
                     <p className={styles.videoTitle}>{this.state.datas.videoTitle}</p>
                     <p className={styles.viewCountAndDate}>{`${config.countConverter(this.state.datas.viewCount)}회`}

@@ -31,7 +31,7 @@ export async function getSearchResult(callback, query) {
 }
 
 export async function getRcmData(callback, videoId) {
-    const url = `https://www.googleapis.com/youtube/v3/search?&part=snippet&type=video&relatedVideoId=${videoId}&maxResults=5&key=${api_key}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?&part=snippet&type=video&relatedVideoId=${videoId}&maxResults=6&key=${api_key}`;
     fetch(url, requestOptions)
         .then(response => response.json())
         .then(json => callback(json.items))
