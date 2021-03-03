@@ -52,7 +52,6 @@ class App extends Component {
           <Header youtubeSearch={this.handleSearch} onLogoClick={this.handleLogoClick} />
           <PlayScreen
             key={Date.now() * Math.random()}
-            className='main'
             input={this.state.input}
             currentPage={this.state.currentPage}
             playData={this.state.playData}

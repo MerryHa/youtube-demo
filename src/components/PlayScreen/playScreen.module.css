@@ -1,20 +1,33 @@
-iframe{
-    width:100%;
-    height:500px;
-    margin-top: 60px;
-}
-.container{
+.playScreen{
     display: flex;
-    color: white;
-    padding: 10px 40px;
+    margin-top: 60px;
+    padding: 10px 60px;
 }
-.videoContainer{
-    width: 65%;
-    font-size:12px;
-    padding: 0 20px;
+.playVideoBox{
+    flex: 0 1 65%;
+    color: white;
+    padding: 0 5px;
 }
 .recommendation{
-    width:35%;
+    flex:0 1 35%;
+    padding: 0 5px;
+}
+.iframeBox{
+    margin: 10px 0 20px 0;
+    position: relative;
+    width:100%;
+    padding-bottom: 56.25%;
+}
+iframe{
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.videoContainer{
+    width: 100%;
+    font-size:12px;
 }
 .line{
     margin:16px 0 8px 0;
@@ -42,7 +55,7 @@ color:var(--color-light-gray);
     display: flex;
     font-size: 24px;
 }
-button{
+.btnContainer button{
     color: var(--color-light-gray);
     margin-left: 8px;
 }
@@ -73,23 +86,19 @@ font-size: 22px;
     font-size: 12px;
     color:var(--color-light-gray);
 }
-.alarm{
-    font-size: 20px;
-    margin-left: 8px;
-}
 .subscribe{
     font-size: 16px;
-    background-color: var(--color-gray);
+    background-color: var(--color-red);
+    color: white;
     border-radius: 4px;
     padding: 8px 20px;
 }
 
-
 .channelImg{
     border-radius: 50%;
-    width:45px;
-    height:45px;
-    margin-right: 8px;
+    width:50px;
+    height:50px;
+    margin-right: 15px;
 }
 .channelStart{
     display: flex;
@@ -99,7 +108,7 @@ font-size: 22px;
     font-size: 12px;
 } */
 .notMore{
-    padding: 0 50px;
+    padding: 0 60px;
     display: -webkit-box;
 	overflow: hidden;
 	-webkit-line-clamp: 3; 
@@ -109,16 +118,28 @@ font-size: 22px;
     line-height: 20px;
 }
 .moreBtn{
-    padding: 0 50px;
+    padding: 0 59px;
 }
-.comments{
+.comments1,.comments2{
+    margin: 4px 0;
     font-size: 16px;
 }
+.comments1{
+    display:block;
+}
+.comments2{
+    display: none;
+}
 @media screen and (max-width:1000px){
-    .container{
-        display: block;
+    .playScreen{
+        flex-direction: column;
+        margin-top: 60px;
+        padding: 10px 60px;
     }
-    .videoContainer,.recommendation{
-        width: 100%;
+    .comments1{
+        display:none;
+    }
+    .comments2{
+        display: block;
     }
 }

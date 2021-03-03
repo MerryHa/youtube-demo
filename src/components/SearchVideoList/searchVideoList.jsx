@@ -12,11 +12,18 @@ class SearchVideoList extends Component {
     componentDidMount() {
         config.getSearchResult(this.setDatas, this.state.input);
     }
-    setDatas = (items) => {
-        const datas = [...items];
-        this.setState({ datas });
+    componentDidUpdate() {
+        if (this.props.input !== this.state.input) {
+            config.getSearchResult(this.setDatas, this.props.input);
+            console.log('vidieo list update');
+        }
     }
 
+    setDatas = (items) => {
+        const datas = [...items];
+        this.setState({ datas, input: this.props.input });
+        console.log(this.state);
+    }
     render() {
         return (
             <div className={styles.playlist}>
@@ -27,6 +34,7 @@ class SearchVideoList extends Component {
                                 key={Date.now() * Math.random()}
                                 data={data}
                                 onClickVideo={this.props.onClickVideo}
+                                input={this.props.input}
                             />
                         )
                     })

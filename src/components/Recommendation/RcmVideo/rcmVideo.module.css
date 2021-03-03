@@ -18,7 +18,10 @@
 }
 .videoTitle{
     font-size: 14px;
-    font-weight: bold;
+    display: -webkit-box;
+	overflow: hidden;
+	-webkit-line-clamp: 2; 
+	-webkit-box-orient: vertical;
 }
 .channelName,.viewCountAndDate{
 color:var(--color-middle-gray);

@@ -23,6 +23,7 @@ body{
   --color-middle-gray:#909090;
   --color-light-gray:#AAAAAA;
   --color-blue:#4195f0;
+  --color-red:#cc0001;
 }
 .main{
   display: flex;

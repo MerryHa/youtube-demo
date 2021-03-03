@@ -10,11 +10,12 @@ const requestOptions = {
     method: 'GET',
     redirect: 'follow'
 };
+
 dotenv.config();
 const api_key = process.env.REACT_APP_YOUTUBE_API_KEY1;
 
 export async function getMostPopular(callback) {
-    const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=28&key=${api_key}`;
+    const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&maxResults=24&key=${api_key}`;
     fetch(url, requestOptions)
         .then(response => response.json())
         .then(json => callback(json.items))
@@ -22,7 +23,7 @@ export async function getMostPopular(callback) {
 }
 
 export async function getSearchResult(callback, query) {
-    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet,id&type=video&maxResults=12&q=${query}&key=${api_key}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?part=snippet,id&type=video&maxResults=10&q=${query}&key=${api_key}`;
     fetch(url, requestOptions)
         .then(response => response.json())
         .then(json => callback(json.items))
@@ -30,7 +31,7 @@ export async function getSearchResult(callback, query) {
 }
 
 export async function getRcmData(callback, videoId) {
-    const url = `https://www.googleapis.com/youtube/v3/search?&part=snippet&type=video&relatedVideoId=${videoId}&maxResults=8&key=${api_key}`;
+    const url = `https://www.googleapis.com/youtube/v3/search?&part=snippet&type=video&relatedVideoId=${videoId}&maxResults=5&key=${api_key}`;
     fetch(url, requestOptions)
         .then(response => response.json())
         .then(json => callback(json.items))

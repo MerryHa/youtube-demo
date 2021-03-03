@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from '../SearchVideo/searchVideo.module.css';
 import * as config from '../../../config';
 
+let datas = {};
 class SearchVideo extends Component {
     state = {
         datas: {
@@ -19,16 +20,16 @@ class SearchVideo extends Component {
             dislike: '',
             comment: '',
             tags: '',
-        }
+        },
+        input: this.props.input
 
     }
-    componentDidMount = () => {
+    componentDidMount() {
         config.fetchVideoData(this.state.datas.videoId, this.setVideoInfo);
         config.fetchChannelData(this.state.datas.channelId, this.setChannelInfo);
     }
-
     setVideoInfo = (data) => {
-        const datas = {
+        datas = {
             ...this.state.datas,
             viewCount: data.statistics.viewCount,
             like: data.statistics.likeCount,
@@ -36,11 +37,10 @@ class SearchVideo extends Component {
             comment: data.statistics.commentCount,
             tags: data.snippet.tags,
         }
-        this.setState({ datas });
     }
     setChannelInfo = (data) => {
-        const datas = {
-            ...this.state.datas,
+        datas = {
+            ...datas,
             channelImg: data.snippet.thumbnails.default.url,
             subscriber: data.statistics.subscriberCount
         }
